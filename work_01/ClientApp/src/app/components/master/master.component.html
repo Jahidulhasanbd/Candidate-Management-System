@@ -1,0 +1,64 @@
+<div class="wrapper container">
+    <form [formGroup]="candidateForm" (ngSubmit)="insertCandidate()">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="display-4">Candidate Details</h2>
+                <div class="row mb-2">
+                    <label class="col-form-label col-3" for="candidateName">Candidate Name</label>
+                    <div class="col-9">
+                        <input type="text" formControlName="candidateName" class="form-control" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <label class="col-form-label col-3" for="birthDate">Date of Birth</label>
+                    <div class="col-9">
+                        <input type="date" formControlName="birthDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <label class="col-form-label col-3">Picture</label>
+                    <div class="col-9">
+                        <input type="file" class="form-control" (change)="onFileSelected($event)" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <label class="col-form-label col-3" for="fresher">Fresher</label>
+                    <div class="col-9 mt-2">
+                        <input type="checkbox" formControlName="fresher" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-9 offset-3">
+                        <button type="submit" class="btn btn-success">Entry</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <h2>Select Skills</h2>
+                <div class="d-flex justify-content-end mb-4">
+                    <button mat-mini-fab color="primary" (click)="addSkills()"><mat-icon>add</mat-icon></button>
+                </div>
+                <ng-container formArrayName="skillList">
+                    <ng-container *ngFor="let p of skillListArray.controls;let i=index">
+                        <div [formGroupName]="i">
+                            <div class="row mb-2">
+                                <div class="col-10">
+                                    <select formControlName="skillId" class="form-control">
+                                        <option disabled value="null">---Select----</option>
+                                        <option *ngFor="let item of skillList" value="{{item.skillName}}">
+                                            {{item.skillName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <button mat-mini-fab color="warn" (click)="removeSkillList(i)"><mat-icon>delete</mat-icon></button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </form>
+</div>
